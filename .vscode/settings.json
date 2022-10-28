@@ -1,0 +1,25 @@
+{
+  "files.exclude": {
+    "dist/**/*": true,
+    "node_modules/**/*": true,
+    "docs/**/swagger-ui*": true,
+  },
+  "files.autoGuessEncoding": true,
+  "typescript.validate.enable": true,
+  "eslint.debug": false,
+  "editor.codeActionsOnSave": [
+    "source.organizeImports",
+    "source.fixAll.eslint",
+  ],
+  "eslint.validate": [
+    "typescript"
+  ],
+  "vetur.format.defaultFormatter.ts": "vscode-typescript",
+  "todo.embedded.exclude": [
+    "./dist/**/*",
+    "./docs/**/*",
+    "node_modules/**/*",
+    ".git/**/*"
+  ],
+  "typescript.preferences.importModuleSpecifier": "relative"
+}

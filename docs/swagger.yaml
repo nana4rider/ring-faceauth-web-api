@@ -1,0 +1,167 @@
+openapi: 3.0.0
+paths:
+  /persons:
+    get:
+      operationId: PersonController_index
+      summary: 人物の一覧を取得
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonDto'
+      tags: &ref_0
+        - person
+    post:
+      operationId: PersonController_create
+      summary: 人物を登録
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonInsertDto'
+      responses:
+        '201':
+          description: ''
+      tags: *ref_0
+  /persons/{personId}:
+    get:
+      operationId: PersonController_findOne
+      summary: 人物の詳細を取得
+      parameters:
+        - name: personId
+          required: true
+          in: path
+          description: Person ID
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonDto'
+      tags: *ref_0
+    put:
+      operationId: PersonController_update
+      summary: 人物を更新
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonUpdateDto'
+      responses:
+        '204':
+          description: ''
+      tags: *ref_0
+    delete:
+      operationId: PersonController_delete
+      summary: 人物を削除
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags: *ref_0
+info:
+  title: Eolia Unofficial Web API
+  description: Eolia Unofficial Web API
+  version: '2.0'
+  contact: {}
+  license:
+    name: ISC
+    url: https://licenses.opensource.jp/ISC/ISC.html
+tags: []
+servers:
+  - url: http://localhost:3004/v1
+  - url: http://raspberrypi1.local:3004/v1
+components:
+  schemas:
+    PersonDto:
+      type: object
+      properties:
+        personId:
+          type: number
+          description: 人物ID
+        faceId:
+          type: string
+          description: 顔ID
+        faceImage:
+          type: string
+          description: 顔画像
+        name:
+          type: string
+          description: 人物名
+        nameSsml:
+          type: string
+          description: 人物名(SSML)
+        family:
+          type: boolean
+          description: 家族フラグ
+        unlockExpirationAt:
+          type: object
+          description: 解錠有効期限
+      required:
+        - personId
+        - faceId
+        - faceImage
+        - name
+        - nameSsml
+        - family
+        - unlockExpirationAt
+    PersonInsertDto:
+      type: object
+      properties:
+        faceImage:
+          type: string
+          description: 顔画像
+        name:
+          type: string
+          description: 人物名
+        nameSsml:
+          type: string
+          description: 人物名(SSML)
+        family:
+          type: boolean
+          description: 家族フラグ
+        unlockExpirationAt:
+          type: object
+          description: 解錠有効期限
+      required:
+        - faceImage
+        - name
+        - nameSsml
+        - family
+        - unlockExpirationAt
+    PersonUpdateDto:
+      type: object
+      properties:
+        faceImage:
+          type: object
+          description: 顔画像
+        name:
+          type: object
+          description: 人物名
+        nameSsml:
+          type: object
+          description: 人物名(SSML)
+        family:
+          type: object
+          description: 家族フラグ
+        unlockExpirationAt:
+          type: object
+          description: 解錠有効期限
+      required:
+        - faceImage
+        - name
+        - nameSsml
+        - family
+        - unlockExpirationAt
