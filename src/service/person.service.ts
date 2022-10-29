@@ -26,6 +26,15 @@ export class PersonService {
     return this.personRepository.findOne({ where: { faceId } });
   }
 
+  async findByFaceImage(faceImage: Buffer): Promise<Person | null> {
+    const face = await this.rekognitionRepository.searchFace(faceImage);
+    if (!face?.FaceId) {
+      return null;
+    }
+
+    return this.findByFaceId(face.FaceId);
+  }
+
   async register(data: PersonInsertDto): Promise<Person> {
     const person = new Person();
 

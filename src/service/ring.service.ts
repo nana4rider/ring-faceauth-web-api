@@ -4,7 +4,6 @@ import {
   Logger,
   OnApplicationBootstrap,
 } from '@nestjs/common';
-import { Face } from 'aws-sdk/clients/rekognition';
 import fs from 'fs/promises';
 import { DateTime } from 'luxon';
 import path from 'path';
@@ -14,7 +13,6 @@ import {
   RingCamera,
 } from 'ring-client-api';
 import { Person } from '../entity/person.entity';
-import { RekognitionRepository } from '../repository/rekognition.repository';
 import { RingRepository } from '../repository/ring.repository';
 import { PersonService } from './person.service';
 
@@ -25,7 +23,6 @@ export class RingService implements OnApplicationBootstrap {
   constructor(
     private readonly ringRepository: RingRepository,
     private readonly personService: PersonService,
-    private readonly rekognitionRepository: RekognitionRepository,
     @Inject('MessengerRepository')
     private readonly messengerRepository: MessengerRepository,
     @Inject('SmartLockRepository')
@@ -42,6 +39,7 @@ export class RingService implements OnApplicationBootstrap {
   }
 
   async onDing(camera: RingCamera, notification: PushNotification) {
+    const now = DateTime.now();
     void this.announcementRepository.ding();
 
     const snapshot = await camera
@@ -57,15 +55,11 @@ export class RingService implements OnApplicationBootstrap {
 
     this.logger.log('snapshot finished');
 
-    void this.saveSnapshot(snapshot);
+    void this.saveSnapshot(now, snapshot);
 
-    const face = await this.rekognitionRepository.searchFace(snapshot);
+    const person = await this.personService.findByFaceImage(snapshot);
 
-    const person = face?.FaceId
-      ? await this.personService.findByFaceId(face?.FaceId)
-      : null;
-
-    void this.postMessenger(snapshot, face, person);
+    void this.postMessenger(now, snapshot, person);
 
     if (!person) return;
 
@@ -79,33 +73,30 @@ export class RingService implements OnApplicationBootstrap {
     void this.announcementRepository.announce(person);
   }
 
-  private async saveSnapshot(snapshot: Buffer): Promise<void> {
+  private async saveSnapshot(
+    datetime: DateTime,
+    snapshot: Buffer,
+  ): Promise<void> {
     const snapshotPath = path.join(
       'snapshot',
-      DateTime.local().toFormat('yyyyMMddHHmmss') + '.jpg',
+      datetime.toFormat('yyyyMMddHHmmss') + '.jpg',
     );
 
     await fs.writeFile(snapshotPath, snapshot);
   }
 
   private async postMessenger(
+    datetime: DateTime,
     snapshot: Buffer,
-    face: Face | null,
     person: Person | null,
   ) {
-    let message;
-    if (!face) {
-      message = '未検出';
-    } else if (!person) {
-      message = '未登録';
-    } else {
-      message = person.name;
-    }
+    const message = `Date: ${datetime.toFormat('yyyy/MM/dd/ HH:mm:ss')}
+Name: ${person ? person.name : '未登録'}`;
 
     await this.messengerRepository.post(message, [
       {
         content: snapshot,
-        name: 'result.jpg',
+        name: datetime.toFormat('yyyyMMddHHmmss') + '.jpg',
       },
     ]);
   }
