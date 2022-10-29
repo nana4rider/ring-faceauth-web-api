@@ -39,8 +39,8 @@ lerna-debug.log*
 .token
 config.yaml
 
-# gitkeep
-!.gitkeep
-
 # face image
 snapshot/*
+
+# gitkeep
+!.gitkeep
