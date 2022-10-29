@@ -22,7 +22,7 @@ export class NoderedRepository implements AnnouncementRepository {
       return;
     }
 
-    await this.axios.post('/public/doorbell');
+    await this.axios.post('/doorbell');
   }
 
   async announce(person: Person): Promise<void> {
