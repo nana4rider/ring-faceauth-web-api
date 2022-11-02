@@ -1,6 +1,6 @@
 openapi: 3.0.0
 paths:
-  /persons:
+  /people:
     get:
       operationId: PersonController_index
       summary: 人物の一覧を取得
@@ -30,7 +30,7 @@ paths:
         '201':
           description: ''
       tags: *ref_0
-  /persons/{personId}:
+  /people/{personId}:
     get:
       operationId: PersonController_findOne
       summary: 人物の詳細を取得

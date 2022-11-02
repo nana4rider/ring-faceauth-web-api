@@ -16,7 +16,7 @@ import { Person } from '../entity/person.entity';
 import { PersonPipe } from '../pipe/person.pipe';
 import { PersonService } from '../service/person.service';
 
-@Controller('persons')
+@Controller('people')
 @ApiTags('person')
 export class PersonController {
   constructor(private readonly personService: PersonService) {}
@@ -29,9 +29,9 @@ export class PersonController {
   @ApiOperation({ summary: '人物の一覧を取得' })
   @Get()
   async index(): Promise<PersonDto[]> {
-    const persons = await this.personService.find();
+    const people = await this.personService.find();
 
-    return persons.map((person) => person.toDto());
+    return people.map((person) => person.toDto());
   }
 
   @ApiParam({
