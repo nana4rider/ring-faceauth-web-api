@@ -13,9 +13,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
   const options = new DocumentBuilder()
-    .setTitle('Eolia Unofficial Web API')
-    .setDescription('Eolia Unofficial Web API')
-    .setVersion('2.0')
+    .setTitle('Ring Face Authentication Web API')
+    .setDescription('Ring Face Authentication Web API')
+    .setVersion('1.0')
     .setLicense('ISC', 'https://licenses.opensource.jp/ISC/ISC.html')
     .addServer(`http://localhost:3004/${basePath}`)
     .addServer(`http://raspberrypi1.local:3004/${basePath}`)

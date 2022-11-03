@@ -72,9 +72,9 @@ paths:
           description: ''
       tags: *ref_0
 info:
-  title: Eolia Unofficial Web API
-  description: Eolia Unofficial Web API
-  version: '2.0'
+  title: Ring Face Authentication Web API
+  description: Ring Face Authentication Web API
+  version: '1.0'
   contact: {}
   license:
     name: ISC
