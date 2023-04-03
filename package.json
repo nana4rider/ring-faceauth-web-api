@@ -1,6 +1,6 @@
 {
   "name": "ring-faceauth-web-api",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "author": "nana4rider",
   "private": false,
@@ -44,7 +44,7 @@
     "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "ring-client-api": "^11.3.1",
+    "ring-client-api": "^11.7.4",
     "rxjs": "^7.2.0",
     "typeorm": "^0.3.7",
     "typeorm-util-ts": "github:nana4rider/typeorm-util-ts"

@@ -8,8 +8,8 @@ import fs from 'fs/promises';
 import { DateTime } from 'luxon';
 import path from 'path';
 import {
-  PushNotification,
   PushNotificationAction,
+  PushNotificationDing,
   RingCamera,
 } from 'ring-client-api';
 import { Person } from '../entity/person.entity';
@@ -38,14 +38,12 @@ export class RingService implements OnApplicationBootstrap {
     );
   }
 
-  async onDing(camera: RingCamera, notification: PushNotification) {
+  async onDing(camera: RingCamera, notification: PushNotificationDing) {
     const now = DateTime.now();
     void this.announcementRepository.ding();
 
     const snapshot = await camera
-      .getSnapshot({
-        uuid: notification.ding.image_uuid,
-      })
+      .getSnapshotByUuid(notification.ding.image_uuid)
       .catch((reason) => {
         this.logger.warn('snapshot failed', reason);
         return null;
