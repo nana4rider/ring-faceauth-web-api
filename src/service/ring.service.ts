@@ -43,7 +43,7 @@ export class RingService implements OnApplicationBootstrap {
     void this.announcementRepository.ding();
 
     const snapshot = await camera
-      .getSnapshotByUuid(notification.ding.image_uuid)
+      .getSnapshot({ uuid: notification.ding.image_uuid })
       .catch((reason) => {
         this.logger.warn('snapshot failed', reason);
         return null;
