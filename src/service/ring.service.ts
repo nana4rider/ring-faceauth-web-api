@@ -88,7 +88,7 @@ export class RingService implements OnApplicationBootstrap {
     snapshot: Buffer,
     person: Person | null,
   ) {
-    const message = `Date: ${datetime.toFormat('yyyy/MM/dd/ HH:mm:ss')}
+    const message = `Date: ${datetime.toFormat('yyyy/MM/dd HH:mm:ss')}
 Name: ${person ? person.name : '未登録'}`;
 
     await this.messengerRepository.post(message, [
