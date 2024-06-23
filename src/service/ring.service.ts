@@ -15,6 +15,7 @@ import {
 import { Person } from '../entity/person.entity';
 import { RingRepository } from '../repository/ring.repository';
 import { PersonService } from './person.service';
+import { setTimeout } from 'timers/promises';
 
 @Injectable()
 export class RingService implements OnApplicationBootstrap {
@@ -70,7 +71,7 @@ export class RingService implements OnApplicationBootstrap {
       void this.smartLockRepository.unlock();
     }
 
-    this.logger.log('announce');
+    await setTimeout(1000);
     void this.announcementRepository.announce(person);
   }
 
