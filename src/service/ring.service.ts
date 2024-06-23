@@ -55,8 +55,10 @@ export class RingService implements OnApplicationBootstrap {
 
     void this.saveSnapshot(now, snapshot);
 
+    this.logger.log('get person');
     const person = await this.personService.findByFaceImage(snapshot);
 
+    this.logger.log('post messenger');
     void this.postMessenger(now, snapshot, person);
 
     if (!person) return;
@@ -68,6 +70,7 @@ export class RingService implements OnApplicationBootstrap {
       void this.smartLockRepository.unlock();
     }
 
+    this.logger.log('announce');
     void this.announcementRepository.announce(person);
   }
 

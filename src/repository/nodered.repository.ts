@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axiosBase, { AxiosInstance } from 'axios';
 import { Person } from '../entity/person.entity';
@@ -8,6 +8,8 @@ import { Person } from '../entity/person.entity';
  */
 @Injectable()
 export class NoderedRepository implements AnnouncementRepository {
+  private readonly logger = new Logger(NoderedRepository.name);
+
   private axios: AxiosInstance;
 
   constructor(private readonly configService: ConfigService) {
@@ -31,12 +33,14 @@ export class NoderedRepository implements AnnouncementRepository {
       return;
     }
 
+    this.logger.log('announce start');
     await this.axios.post('/alexa/announcement', {
       device: 'all',
       text: person.family
         ? `${person.nameSsml}さん、おかえりなさい`
         : `${person.nameSsml}さんがいらっしゃいました`,
     });
+    this.logger.log('announce end');
   }
 
   async isModeEnable(mode: string) {
