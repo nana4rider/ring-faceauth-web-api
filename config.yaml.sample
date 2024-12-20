@@ -7,7 +7,7 @@ typeorm:
   database:
   synchronize: false
 
-nodered:
+internalApi:
   url:
 
 discord:

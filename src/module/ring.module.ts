@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Person } from '../entity/person.entity';
 import { DiscordRepository } from '../repository/discord.repository';
 import { JemaApiRepository } from '../repository/jema.repository';
-import { NoderedRepository } from '../repository/nodered.repository';
+import { InternalApiRepository } from '../repository/internal.repository';
 import { RekognitionRepository } from '../repository/rekognition.repository';
 import { RingRepository } from '../repository/ring.repository';
 import { PersonService } from '../service/person.service';
@@ -25,7 +25,7 @@ import { RingService } from '../service/ring.service';
     },
     {
       provide: 'AnnouncementRepository',
-      useClass: NoderedRepository,
+      useClass: InternalApiRepository,
     },
   ],
   controllers: [],
