@@ -13,10 +13,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --omit=dev
 COPY --chown=node:node --from=build /app/dist ./dist
+RUN mkdir /app/snapshot && chown node:node /app/snapshot
 
 USER node
 EXPOSE 3000
-
-RUN mkdir /app/snapshot
 
 ENTRYPOINT ["node", "/app/dist/main"]
