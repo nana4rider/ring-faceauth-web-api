@@ -17,4 +17,6 @@ COPY --chown=node:node --from=build /app/dist ./dist
 USER node
 EXPOSE 3000
 
+RUN mkdir /app/snapshot
+
 ENTRYPOINT ["node", "/app/dist/main"]
