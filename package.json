@@ -46,6 +46,7 @@
     "rimraf": "^3.0.2",
     "ring-client-api": "^12",
     "rxjs": "^7.2.0",
+    "pluralize": "^8.0.0",
     "typeorm": "^0.3.7",
     "typeorm-util-ts": "github:nana4rider/typeorm-util-ts"
   },
