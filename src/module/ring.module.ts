@@ -2,7 +2,6 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Person } from '../entity/person.entity';
 import { DiscordRepository } from '../repository/discord.repository';
-import { JemaApiRepository } from '../repository/jema.repository';
 import { InternalApiRepository } from '../repository/internal.repository';
 import { RekognitionRepository } from '../repository/rekognition.repository';
 import { RingRepository } from '../repository/ring.repository';
@@ -20,12 +19,12 @@ import { RingService } from '../service/ring.service';
       useClass: DiscordRepository,
     },
     {
-      provide: 'SmartLockRepository',
-      useClass: JemaApiRepository,
-    },
-    {
       provide: 'AnnouncementRepository',
       useClass: InternalApiRepository,
+    },
+    {
+      provide: 'SmartLockRepository',
+      useExisting: 'AnnouncementRepository',
     },
   ],
   controllers: [],
