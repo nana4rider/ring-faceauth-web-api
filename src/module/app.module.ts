@@ -6,6 +6,7 @@ import configuration from '../config/yaml';
 import { AppController } from '../controller/app.controller';
 import { PersonModule } from './person.module';
 import { RingModule } from './ring.module';
+import { HealthModule } from './health.module';
 
 const typeormModule = TypeOrmModule.forRootAsync({
   useFactory: (configService: ConfigService) => {
@@ -28,6 +29,7 @@ const typeormModule = TypeOrmModule.forRootAsync({
       load: [configuration],
     }),
     typeormModule,
+    HealthModule,
     PersonModule,
     RingModule,
   ],
